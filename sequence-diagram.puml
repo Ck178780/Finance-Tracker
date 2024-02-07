@@ -1,0 +1,78 @@
+@startuml
+actor User
+
+User -> UserInterface: Start
+UserInterface -> User: Show Menu
+
+User -> UserInterface: Enter Choice
+
+alt choice == '1'
+    UserInterface -> GetExpenseInput: Get Expense Input
+    GetExpenseInput -> Expense: Create Expense
+    Expense --> UserInterface: Expense Details
+    UserInterface --> User: Display Expense Details
+else choice == '2'
+    UserInterface -> GetIncomeInput: Get Income Input
+    GetIncomeInput -> Income: Create Income
+    Income --> UserInterface: Income Details
+    UserInterface --> User: Display Income Details
+else choice == '3'
+    UserInterface -> ViewEntries: View Expenses
+    ViewEntries -> Expenses: Get Expense Entries
+    Expenses --> ViewEntries: Expense Entries
+    ViewEntries --> UserInterface: Display Expense Entries
+    UserInterface --> User: Display Expense Entries
+else choice == '4'
+    UserInterface -> ViewEntries: View Income
+    ViewEntries -> Income: Get Income Entries
+    Income --> ViewEntries: Income Entries
+    ViewEntries --> UserInterface: Display Income Entries
+    UserInterface --> User: Display Income Entries
+else choice == '5'
+    UserInterface -> ViewCategorySummary: View Category Summary
+    ViewCategorySummary -> CategorySummary: Generate Summary
+    CategorySummary --> ViewCategorySummary: Summary Data
+    ViewCategorySummary --> UserInterface: Display Summary
+    UserInterface --> User: Display Category Summary
+else choice == '6'
+    UserInterface -> SetCategoryBudget: Set Category Budget
+    SetCategoryBudget -> UserInterface: Display Budget Set Confirmation
+    UserInterface --> User: Display Budget Set Confirmation
+else choice == '7'
+    UserInterface -> ViewBudgetStatus: View Budget Status
+    ViewBudgetStatus -> CategorySummary: Get Category Expenses
+    CategorySummary -> Expenses: Calculate Category Expenses
+    Expenses --> CategorySummary: Category Expenses
+    CategorySummary -> ViewBudgetStatus: Get Category Budgets
+    ViewBudgetStatus --> UserInterface: Display Category Budget Status
+    ViewBudgetStatus -> Global: Get Overall Budget
+    Global --> ViewBudgetStatus: Overall Budget
+    ViewBudgetStatus --> UserInterface: Display Overall Budget Status
+    UserInterface --> User: Display Budget Status
+else choice == '8'
+    UserInterface -> EditEntry: Edit Entry
+    EditEntry -> UserInterface: Display Edit Confirmation
+    UserInterface --> User: Display Edit Confirmation
+else choice == '9'
+    UserInterface -> ExportCSV: Export Data to CSV
+    ExportCSV -> UserInterface: Display Export Confirmation
+    UserInterface --> User: Display Export Confirmation
+else choice == '10'
+    UserInterface -> DeleteEntry: Delete Expense Entry
+    DeleteEntry -> UserInterface: Display Delete Confirmation
+    UserInterface --> User: Display Delete Confirmation
+else choice == '11'
+    UserInterface -> DeleteEntry: Delete Income Entry
+    DeleteEntry -> UserInterface: Display Delete Confirmation
+    UserInterface --> User: Display Delete Confirmation
+else choice == '12'
+    UserInterface --> User: Exit Finance Tracker
+else choice == '13'
+    UserInterface -> DeleteAllData: Clear all data
+    DeleteAllData -> UserInterface: Display Clear Data Confirmation
+    UserInterface --> User: Display Clear Data Confirmation
+else
+    UserInterface --> User: Invalid Choice
+end
+
+@enduml

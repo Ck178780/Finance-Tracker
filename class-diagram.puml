@@ -1,0 +1,109 @@
+@startuml
+
+class Expense {
+    - date: str
+    - category: str
+    - amount: float
+    - description: str
+    _______________________
+    + __init__(date: str, category: str, amount: float, description: str)
+    + __str__(): str
+}
+
+class Income {
+    - date: str
+    - source: str
+    - amount: float
+    - description: str
+    _______________________
+    + __init__(date: str, source: str, amount: float, description: str)
+    + __str__(): str
+}
+
+class CategorySummary {
+    _______________________
+    + get_expense_categories_and_totals(expenses_list: list): dict
+    + get_income_sources_and_totals(income_list: list): dict
+    + view_category_summary(expenses_list: list, income_list: list)
+}
+
+class BudgetStatus {
+    _______________________
+    + calculate_budget_status(budget_amount: float, total_amount: float): tuple
+}
+
+class Expenses {
+    _______________________
+    + validate_date(date_string: str): bool
+    + validate_amount(amount: str): bool
+    + get_expense_input(): Expense
+}
+
+class GetUserInput {
+    _______________________
+    + get_user_input(prompt: str): str
+}
+
+class GetIncomeInput {
+    _______________________
+    + get_income_input(): Income
+}
+
+class SetCategoryBudget {
+    _______________________
+    + set_category_budget()
+}
+
+class EditEntry {
+    _______________________
+    + edit_entry(entries_list: list)
+}
+
+class ViewEntries {
+    _______________________
+    + view_entries(entries_list: list, entry_type: str)
+}
+
+class DeleteEntry {
+    _______________________
+    + delete_entry(entries_list: list)
+}
+
+class ExportCSV {
+    _______________________
+    + export_to_csv(entries_list: list, filename: str)
+}
+
+class DeleteAllData {
+    _______________________
+    + delete_all_data()
+}
+
+class UserInterface {
+    _______________________
+    + show_menu()
+}
+
+class Global {
+    _______________________
+    - expenses_list: list
+    - income_list: list
+    - category_budgets: dict
+}
+
+Expense --|> Expenses
+Income --|> GetIncomeInput
+UserInterface --|> GetUserInput
+UserInterface --|> GetExpenseInput
+UserInterface --|> ViewEntries
+UserInterface --|> SetCategoryBudget
+UserInterface --|> EditEntry
+UserInterface --|> ViewBudgetStatus
+UserInterface --|> ExportCSV
+UserInterface --|> DeleteEntry
+UserInterface --|> DeleteAllData
+UserInterface --|> CategorySummary
+UserInterface --|> BudgetStatus
+UserInterface --|> Global
+
+@enduml
